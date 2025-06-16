@@ -179,32 +179,14 @@ Task t[20];
    
    t[12].id=17;t[12].name="Open Google Chrome";
    t[12].ramUse=3;t[12].priority=17;
-
- t[13].id=17;t[13].name="Time";
-   t[13].ramUse=1;t[13].priority=18;
-
- t[14].id=17;t[14].name="Rock Paper Scissor";
-   t[14].ramUse=1;t[14].priority=18;
-
- t[15].id=17;t[15].name="To Do List";
-   t[15].ramUse=1;t[15].priority=19;
- t[16].id=17;t[16].name="Expense Sheet";
-   t[16].ramUse=1;t[16].priority=20;
- t[17].id=17;t[17].name="Quiz";
-   t[17].ramUse=1;t[17].priority=21;
-
-   countTask = 14;
+   countTask = 12;
     pthread_exit(NULL);
 }
 
  
 
- //void playAudiochoice() {
-    //system("canberra-gtk-play -f OS.wav");
-//}
-// Define the function before it is called
-void playAudiochoice() {
-    system("aplay /home/ns3/Desktop/Operating_System/OS.wav");
+ void playAudiochoice() {
+    system("canberra-gtk-play -f OS.wav");
 }
 
 void* func(void *arg)
@@ -225,31 +207,28 @@ void* func(void *arg)
 
     cout << "2 : TIC TAC TOE" << endl;
 
-    cout << "3 : Make file" << endl;
+    cout << "3 : make file" << endl;
 
-    cout << "4 : Move file" << endl;
+    cout << "4 : move file" << endl;
 
-    cout << "5 : Copy file content" << endl;
+    cout << "5 : copy file content" << endl;
 
-    cout << "6 : Delete a file" << endl;
+    cout << "6 : delete a file" << endl;
 
     cout << "7 : Find FCFS" << endl;
 
-    cout << "8 : Play music" << endl;
+    cout << "8 : play music" << endl;
 
-    cout << "9 : Open calendar" << endl;
+    cout << "9 : open calendar" << endl;
 
-    cout << "10 : Notepad" << endl;
+    cout << "10 : NOtepad" << endl;
 
-    cout << "11 : Stopwatch" << endl;
+    cout << "11 : Stpowatch" << endl;
     cout << "12 : Guess Game" << endl;
-cout << "13 : Rock Paper Scissor Game" << endl;
-    cout << "14 : Open Google Chrome" << endl;
-    cout << "15 : Time" << endl;
-cout << "16 : To Do List" << endl;
-cout << "17 : Expense Sheet" << endl;
-cout << "18 : Quiz" << endl;
-    cout<<"19 : exit"<<endl;
+
+    cout << "13 : Open Google Chrome" << endl;
+
+    cout<<"14 : exit"<<endl;
 
     cin >> n;
 	cout<<"\n\t---------"<<"Total Ram is " << mem<<"-----------"<<endl;
@@ -267,7 +246,6 @@ cout << "18 : Quiz" << endl;
 
    
    sleep(3);
-
 
     if (n == 1)
     {
@@ -338,7 +316,8 @@ cout << "18 : Quiz" << endl;
 
         // Open a new terminal window, compile/run a C++ file, and close the window when done
 
-  	string command = ("gnome-terminal -- bash -c './make 1; echo \"Press Enter to exit...\"; read'");
+  	string command = "gnome-terminal -- bash -c 'g++ makeFile.cpp -o my_executable && ./my_executable " + to_string(mem) + "; exit' &";
+    
       // Open a new terminal window, compile/run a C++ file, and close the window when done
 
     system(command.c_str());
@@ -361,19 +340,14 @@ cout << "18 : Quiz" << endl;
         shared_memory[0]=shared_memory[0]-2;
 
         shared_memory[5]=1;
-float mem = 4.0; // Example memory value
-    string command = "gnome-terminal -- bash -c './moveFile " + to_string(mem) + "; exit'";
-
-    // Run the moveFile executable in a new terminal
-    system(command.c_str());
 
         // Open a new terminal window, compile/run a C++ file, and close the window when done
 
-    //string command = "gnome-terminal -- bash -c 'g++ moveFile.cpp -o my_executable && ./my_executable " + to_string(mem) + "; exit' &";
+    string command = "gnome-terminal -- bash -c 'g++ moveFile.cpp -o my_executable && ./my_executable " + to_string(mem) + "; exit' &";
     
       // Open a new terminal window, compile/run a C++ file, and close the window when done
 
-    //system(command.c_str());
+    system(command.c_str());
  
 
     // Open a new tab in the current terminal window, compile/run a C++ file, and close the tab when done
@@ -463,13 +437,16 @@ float mem = 4.0; // Example memory value
 
     }
 
+else if (n == 8)
 
-    else if (n == 8) {
-        thread audioThread1(playAudiochoice);
-        shared_memory[0] = shared_memory[0] - 5;
-        shared_memory[9] = 1;
-        audioThread1.join();
+    {
+thread audioThread1(playAudiochoice);
+        shared_memory[0]=shared_memory[0]-5;
+                shared_memory[9]=1;
+audioThread1.join();
+
     }
+
 
     else if (n == 9)
 
@@ -519,16 +496,30 @@ float mem = 4.0; // Example memory value
  
 
     }
-   else if (n == 11) {
-    shared_memory[0] = shared_memory[0] - 2;
-    shared_memory[10] = 1;
+    else if (n == 11)
 
-    // Command to run the stopwatch
-    string command = "gnome-terminal -- bash -c './stopwatchh; echo \"Press Enter to exit...\"; read -n 1'";
+    {
+
+        shared_memory[0]=shared_memory[0]-2;
+
+        shared_memory[10]=1;
+
+        // Open a new terminal window, compile/run a C++ file, and close the window when done
+
+    string command = "gnome-terminal -- bash -c 'g++ stopwatch.cpp -o my_executable && ./my_executable; exit' &";
     
-    // Execute the command
+      // Open a new terminal window, compile/run a C++ file, and close the window when done
+
     system(command.c_str());
-}
+ 
+
+    // Open a new tab in the current terminal window, compile/run a C++ file, and close the tab when done
+
+   // system("gnome-terminal --tab -- bash -c 'g++ calender.cpp -o my_executable && ./my_executable; exit' &");
+
+ 
+
+    }
     
     else if (n == 12)
 
@@ -540,8 +531,7 @@ float mem = 4.0; // Example memory value
 
         // Open a new terminal window, compile/run a C++ file, and close the window when done
 
-    //string command = "gnome-terminal -- bash -c 'g++ guessgame.cpp -o my_executable && ./my_executable; exit' &";
- string command = ("gnome-terminal -- bash -c './guessgame; echo \"Press Enter to exit...\"; read'");
+    string command = "gnome-terminal -- bash -c 'g++ guessgame.cpp -o my_executable && ./my_executable; exit' &";
     
       // Open a new terminal window, compile/run a C++ file, and close the window when done
 
@@ -555,120 +545,22 @@ float mem = 4.0; // Example memory value
  
 
     }
+
+
+
 else if (n == 13)
-
-    {
-
-        shared_memory[0]=shared_memory[0]-2;
-
-        shared_memory[10]=1;
-
-        // Open a new terminal window, compile/run a C++ file, and close the window when done
-
-    //string command = "gnome-terminal -- bash -c 'g++ guessgame.cpp -o my_executable && ./my_executable; exit' &";
- //system("gnome-terminal -- bash -c './guessgame; echo \"Press Enter to exit...\"; read'");
-     string command = ("gnome-terminal -- bash -c './rockpaper; echo \"Press Enter to exit...\"; read'");
-      // Open a new terminal window, compile/run a C++ file, and close the window when done
-
-    system(command.c_str());
- 
-
-    // Open a new tab in the current terminal window, compile/run a C++ file, and close the tab when done
-
-   // system("gnome-terminal --tab -- bash -c 'g++ calender.cpp -o my_executable && ./my_executable; exit' &");
-
- 
-
-    }
-
-
-else if (n == 14)
     {
         shared_memory[11] = 1;
      	system("xdg-open http://www.google.com");
     }
 
-    else if (n==15)
+    else if (n==14)
 
     {
- cout << shared_memory[0]<<endl<<endl;
 
-    shared_memory[0]=shared_memory[0]-1;
-
-        shared_memory[11]=1;
-
-                    // Open a new terminal window, compile/run a C++ file, and close the window when done
-string command = "gnome-terminal -- bash -c 'g++ Time.cpp -o my_executable && ./my_executable; read -p \"Press Enter to exit...\"'; exit' &";
-
-   //string command = "gnome-terminal -- bash -c 'g++ Time.cpp -o my_executable && ./my_executable " + to_string(mem) + "; exit' &";
-    
-      // Open a new terminal window, compile/run a C++ file, and close the window when done
-
-    system(command.c_str());
-   
+                break;
 
     }
- else if (n==16)
-
-    {
- cout << shared_memory[0]<<endl<<endl;
-
-    shared_memory[0]=shared_memory[0]-1;
-
-        shared_memory[12]=1;
-
-                    // Open a new terminal window, compile/run a C++ file, and close the window when done
- // Open a new terminal window, compile/run a C++ file, and close the window when done
-    string command = "gnome-terminal -- bash -c 'g++ ToDo.cpp -o my_executable && ./my_executable; read -p \"Press Enter to exit...\"'";;
-
-   //string command = "gnome-terminal -- bash -c 'g++ Time.cpp -o my_executable && ./my_executable " + to_string(mem) + "; exit' &";
-    
-      // Open a new terminal window, compile/run a C++ file, and close the window when done
-
-    system(command.c_str());
-   
-
-    }
- else if (n==17)
-
-    {
- cout << shared_memory[0]<<endl<<endl;
-
-    shared_memory[0]=shared_memory[0]-1;
-
-        shared_memory[13]=1;
-
- // Open a new terminal window, compile/run a C++ file, and close the window when done
-    string command = "gnome-terminal -- bash -c 'g++ expense.cpp -o my_executable && ./my_executable; read -p \"Press Enter to exit...\"'";
-
-   //string command = "gnome-terminal -- bash -c 'g++ Time.cpp -o my_executable && ./my_executable " + to_string(mem) + "; exit' &";
-    
-      // Open a new terminal window, compile/run a C++ file, and close the window when done
-
-    system(command.c_str());
-   
-
-    }
- else if (n==18)
-
-    {
- cout << shared_memory[0]<<endl<<endl;
-
-    shared_memory[0]=shared_memory[0]-1;
-
-        shared_memory[14]=1;
-
-
-    // Open a new terminal window, compile/run a C++ file, and close the window when done
-    string command = "gnome-terminal -- bash -c 'g++ quiz.cpp -o my_executable && ./my_executable; read -p \"Press Enter to exit...\"'";
-
-    // Execute the command
-    system(command.c_str());
-}
-	else if (n==19)
-{
-break;
-}
 
     system("clear");
 
@@ -687,31 +579,37 @@ void playAudio() {
     system("canberra-gtk-play -f os.wav");
 }
 
-
-
 void header() {
-    cout << "\033[2J\033[1;1H"; // Clear screen
+
+cout << "\033[2J\033[1;1H"; // Clear screen
 
     string osSimulator = R"(
-  ____                       _   _                _____           _                    _____ _                 _       _             
- / __ \                     | | (_)              / ____|         | |                  / ____(_)               | |     | |            
-| |  | |_ __   ___ _ __ __ _| |_ _ _ __   __ _  | (___  _   _ ___| |_ ___ _ __ ___   | (___  _ _ __ ___  _   _| | __ _| |_ ___  _ __ 
-| |  | | '_ \ / _ \ '__/ _` | __| | '_ \ / _` |  \___ \| | | / __| __/ _ \ '_ ` _ \   \___ \| | '_ ` _ \| | | | |/ _` | __/ _ \| '__|
-| |__| | |_) |  __/ | | (_| | |_| | | | | (_| |  ____) | |_| \__ \ ||  __/ | | | | |  ____) | | | | | | | |_| | | (_| | || (_) | |   
- \____/| .__/ \___|_|  \__,_|\__|_|_| |_|\__, | |_____/ \__, |___/\__\___|_| |_| |_| |_____/|_|_| |_| |_|\__,_|_|\__,_|\__\___/|_|   
-       | |                                __/ |          __/ |                                                                     
-       |_|                               |___/          |___/                                                                      
+    ____     _____           _____    _                           _                   _
+   / __ \   / ____|         / ____|  (_)                         | |                _| |_
+  | |  | | | (___    ____  | (___     _    _________    _    _   | |        ___    |_   _|      ____     ___
+  | |  | |  \___ \  |____|  \___ \   | |  /  _   _  \  | |  | |  | |   _   /   \     | |   _   / __ \   /  _|
+  | |__| |  ____) |         ____) |  | |  | / \ / \ |  | \__/ |  | \__/ |  | () |__  | \__/ | | (__) |  | /
+   \____/  |_____/         |_____/   |_|  |_| |_| |_|   \____/    \____/   \______/   \____/   \____/   |_|
+                     
+                     
     )";
 
-    // Print in green color (32)
-    printInColor(osSimulator, 32);
+    // Print "OS SIMULATOR" in red color (31)
+    printInColor(osSimulator, 31);
 
+	
     cout << endl;
-    cout << "\t\t  \033[1;35mLaiba Khalid 23F-0784\033[0m" << endl;
+    // Print "MUSTEHSAN NISAR" in red color
+    cout << "\t\t  \033[1;31mALi Hassan\033[0m" << endl;
     sleep(1); // Sleep for 1 second
-    cout << "\t\t  \033[1;34mZainab Rasti 23F-0775\033[0m" << endl;
-}
 
+    // Print "UMAR ANJUM" in green color
+    cout << "\t\t  \033[1;32mSana Noor\033[0m  " << endl;
+    sleep(1); // Sleep for 1 second
+
+    // Print "MANESH HARYANI" in blue color
+    cout << "\t\t  \033[1;34mBilal Nazir\033[0m" << endl;
+}
 
 int mode()
 {
@@ -768,30 +666,16 @@ pthread_t thr;
  //   header();
 
 int tempcore;
-    int hard_drive_gb;
-    // RAM input with validation
-    while(true) {
-        cout << "Enter total RAM to allocate (in GB, 1-16): ";
-        cin >> mem;
-        if(mem >= 1 && mem <= 16) break;
-        cout << "Invalid input! Please enter between 1-16 GB." << endl;
-    }
+    cout << " How much RAM you want to Allocate" << endl;
 
-    // Hard drive input with validation
-    while(true) {
-        cout << "Enter hard drive size (in GB, 32-1024): ";
-        cin >> hard_drive_gb;
-        if(hard_drive_gb >= 32 && hard_drive_gb <= 1024) break;
-        cout << "Invalid input! Please enter between 32-1024 GB." << endl;
-    }
+    cin >> mem;
+    
+    cout << " How many cores you want to Allocate" << endl;
 
-    // Core input with validation
-    while(true) {
-        cout << "Enter number of CPU cores (1-8): ";
-        cin >> tempcore;
-        if(tempcore >= 1 && tempcore <= 8) break;
-        cout << "Invalid input! Please enter between 1-8 cores." << endl;
-    }
+    cin >> tempcore;
+
+    cout << "\n\t\t"<< mem << " GB Allocated" << endl;
+
      int shm_id;
 
     key_t key = ftok("shmfile", 65);
